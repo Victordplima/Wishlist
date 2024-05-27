@@ -2,8 +2,9 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons'; // Import Ionicons
-import { cores } from './utils/cores'; // Importar cores
+import { Ionicons } from '@expo/vector-icons';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import { cores } from './utils/cores';
 import CadastroTela from './screens/CadastroTela';
 import LoginTela from './screens/LoginTela';
 import InicioTela from './screens/InicioTela';
@@ -21,6 +22,13 @@ const AuthStack = () => (
         <Stack.Screen name="Cadastro" component={CadastroTela} options={{ title: 'Cadastro' }} />
         <Stack.Screen name="Login" component={LoginTela} options={{ title: 'Login' }} />
     </Stack.Navigator>
+);
+
+const ListaDesejosHeader = () => (
+    <View style={styles.headerContainer}>
+        <Text style={styles.headerTitle}>Lista de Desejos </Text>
+        <Image source={require('./assets/estrela.png')} style={styles.headerImage} />
+    </View>
 );
 
 const Logado = () => (
@@ -50,7 +58,7 @@ const Logado = () => (
     >
         <Tab.Screen name="Categorias" component={CategoriasStackNavigator} options={{ title: 'Categorias' }} />
         <Tab.Screen name="Perfil" component={PerfilTela} options={{ title: 'Perfil' }} />
-        <Tab.Screen name="ListaDesejos" component={ListaDesejosTela} options={{ title: 'Lista de Desejos' }} />
+        <Tab.Screen name="ListaDesejos" component={ListaDesejosTela} options={{ headerTitle: ListaDesejosHeader, title: 'Lista de Desejos' }} />
     </Tab.Navigator>
 );
 
@@ -73,5 +81,22 @@ const App = () => {
         </NavigationContainer>
     );
 };
+
+const styles = StyleSheet.create({
+    headerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    headerImage: {
+        width: 18,
+        height: 18,
+        marginRight: 8,
+        resizeMode: 'contain',
+    },
+    headerTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+});
 
 export default App;
