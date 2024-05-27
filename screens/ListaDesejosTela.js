@@ -38,9 +38,13 @@ const ListaDesejosTela = () => {
 
     const renderProduto = ({ item }) => (
         <View style={styles.item}>
-            <Image source={{ uri: item.urlImagem }} style={styles.imagem} />
-            <Text style={styles.nome}>{item.nome}</Text>
-            <Text style={styles.preco}>Preço: R$ {item.preco.toFixed(2)}</Text>
+            <View style={styles.infoContainer}>
+                <Image source={{ uri: item.urlImagem }} style={styles.imagem} />
+                <View style={styles.textContainer}>
+                    <Text style={styles.nome}>{item.nome}</Text>
+                    <Text style={styles.preco}>Preço: R$ {item.preco.toFixed(2)}</Text>
+                </View>
+            </View>
             <TouchableOpacity
                 style={styles.botaoRemover}
                 onPress={() => handleRemoverListaDesejos(item)}
@@ -58,7 +62,10 @@ const ListaDesejosTela = () => {
                 keyExtractor={(item) => item.produtoId.toString()}
                 renderItem={renderProduto}
             />
-            <Text style={styles.total}>Valor Total: R$ {calcularValorTotal()}</Text>
+            <View style={styles.totalContainer}>
+                <Text style={styles.totalTitle}>Valor total:</Text>
+                <Text style={styles.totalValue}>R$ {calcularValorTotal()}</Text>
+            </View>
         </View>
     );
 };
@@ -66,7 +73,7 @@ const ListaDesejosTela = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 16,
+        //padding: 16,
         backgroundColor: cores.light,
     },
     title: {
@@ -76,33 +83,57 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     item: {
+        flexDirection: 'row',
+        alignItems: 'center',
         marginBottom: 16,
+        paddingHorizontal: 8,
+        paddingVertical: 12,
+        borderRadius: 8,
+        borderColor: cores.black,
+        borderWidth: 1,
+        margin: 15,
+    },
+    infoContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        flex: 1,
+    },
+    textContainer: {
+        flex: 1,
+        marginLeft: 8,
     },
     imagem: {
-        width: '100%',
-        height: 200,
-        marginBottom: 8,
+        width: 100,
+        height: 100,
         borderRadius: 8,
     },
     nome: {
         fontSize: 18,
         fontWeight: 'bold',
-        marginBottom: 8,
+        marginBottom: 4,
     },
     preco: {
         fontSize: 16,
-        marginBottom: 8,
+        marginBottom: 4,
     },
     botaoRemover: {
         position: 'absolute',
         top: 8,
         right: 8,
     },
-    total: {
+    totalContainer: {
+        alignItems: 'center',
+        marginTop: 20,
+        backgroundColor: cores.primary,
+    },
+    totalTitle: {
         fontSize: 20,
         fontWeight: 'bold',
-        textAlign: 'center',
-        marginTop: 20,
+        color: 'white'
+    },
+    totalValue: {
+        fontSize: 20,
+        color: 'white'
     },
 });
 

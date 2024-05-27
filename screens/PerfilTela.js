@@ -1,28 +1,32 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useUser } from '../context/userContext';
 import { cores } from '../utils/cores';
-import { useUser } from '../context/userContext'; // Importe o hook useUser
 
 const PerfilTela = () => {
-    const { userData } = useUser(); // Use o hook useUser para acessar o contexto de usuário
+    const { userData } = useUser();
+    const navigation = useNavigation();
+
+    // URL da imagem do avatar
+    const avatarUrl = `https://avatar.iran.liara.run/public/15`;
+
+    const handleListaDesejosPress = () => {
+        navigation.navigate('ListaDesejos'); // Navegar para a tela de Lista de Desejos
+    };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Perfil</Text>
-            {userData ? (
-                <>
-                    <View style={styles.infoContainer}>
-                        <Text style={styles.label}>Nome:</Text>
-                        <Text style={styles.info}>{userData.nome}</Text>
-                    </View>
-                    <View style={styles.infoContainer}>
-                        <Text style={styles.label}>Email:</Text>
-                        <Text style={styles.info}>{userData.email}</Text>
-                    </View>
-                </>
-            ) : (
-                <Text style={styles.info}>Carregando...</Text>
-            )}
+            <View style={styles.profileContainer}>
+                <Image source={{ uri: avatarUrl }} style={styles.profileImage} />
+                <Text style={styles.name}>{userData.nome}</Text>
+                <Text style={styles.email}>{userData.email}</Text>
+            </View>
+            <Pressable onPress={handleListaDesejosPress}>
+                <View style={styles.card}>
+                    <Text style={styles.cardText}>Lista de Desejos</Text>
+                </View>
+            </Pressable>
         </View>
     );
 };
@@ -30,28 +34,38 @@ const PerfilTela = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
-        padding: 16,
         backgroundColor: cores.light,
     },
-    title: {
-        fontSize: 24,
-        marginBottom: 16,
-        textAlign: 'center',
-        color: cores.primary,
-    },
-    infoContainer: {
-        flexDirection: 'row',
+    profileContainer: {
         alignItems: 'center',
-        marginBottom: 8,
     },
-    label: {
+    profileImage: {
+        width: 150,
+        height: 150,
+        borderRadius: 75,
+        marginBottom: 20,
+    },
+    name: {
+        fontSize: 24,
         fontWeight: 'bold',
-        marginRight: 8,
+        marginBottom: 10,
     },
-    info: {
-        fontSize: 16,
+    email: {
+        fontSize: 18,
+    },
+    card: {
+        backgroundColor: cores.primary,
+        width: '80%',
+        padding: 20,
+        borderRadius: 10,
+        marginTop: 20,
+        alignItems: 'center',
+    },
+    cardText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: 'white',
     },
 });
 

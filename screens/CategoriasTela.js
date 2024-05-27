@@ -24,13 +24,12 @@ const CategoriasTela = ({ navigation }) => {
 
     const renderCategoria = ({ item }) => (
         <TouchableOpacity style={styles.item} onPress={() => handleCategoriaSelecionada(item)}>
-            <Text>{item.nome}</Text>
+            <Text style={styles.itemText}>{item.nome}</Text>
         </TouchableOpacity>
     );
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Categorias</Text>
             <FlatList
                 data={categorias}
                 keyExtractor={(item) => item.categoriaId.toString()}
@@ -46,17 +45,17 @@ const styles = StyleSheet.create({
         padding: 16,
         backgroundColor: cores.light,
     },
-    title: {
-        fontSize: 24,
-        marginBottom: 8,
-        color: cores.primary,
-    },
     item: {
-        padding: 12,
+        padding: 16,
         marginBottom: 8,
+        backgroundColor: cores.white,
+        borderRadius: 8,
         borderWidth: 1,
         borderColor: cores.secondary,
-        borderRadius: 8,
+    },
+    itemText: {
+        fontSize: 18,
+        color: cores.primary,
     },
 });
 

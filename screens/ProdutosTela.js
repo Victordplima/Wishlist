@@ -61,9 +61,13 @@ const ProdutosTela = ({ route }) => {
 
     const renderProduto = ({ item }) => (
         <View style={styles.item}>
-            <Image source={{ uri: item.urlImagem }} style={styles.imagem} />
-            <Text style={styles.nome}>{item.nome}</Text>
-            <Text style={styles.preco}>Preço: R$ {item.preco.toFixed(2)}</Text>
+            <View style={styles.infoContainer}>
+                <Image source={{ uri: item.urlImagem }} style={styles.imagem} />
+                <View style={styles.textContainer}>
+                    <Text style={styles.nome}>{item.nome}</Text>
+                    <Text style={styles.preco}>Preço: R$ {item.preco.toFixed(2)}</Text>
+                </View>
+            </View>
             <TouchableOpacity
                 style={styles.botaoListaDesejos}
                 onPress={() =>
@@ -102,22 +106,38 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     item: {
+        flexDirection: 'row',
+        alignItems: 'center',
         marginBottom: 16,
+        paddingHorizontal: 8,
+        paddingVertical: 12,
+        borderRadius: 8,
+        borderColor: cores.black,
+        borderWidth: 1,
+        backgroundColor: cores.white,
+    },
+    infoContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        flex: 1,
+    },
+    textContainer: {
+        flex: 1,
+        marginLeft: 8,
     },
     imagem: {
-        width: '100%',
-        height: 200,
-        marginBottom: 8,
+        width: 100,
+        height: 100,
         borderRadius: 8,
     },
     nome: {
         fontSize: 18,
         fontWeight: 'bold',
-        marginBottom: 8,
+        marginBottom: 4,
     },
     preco: {
         fontSize: 16,
-        marginBottom: 8,
+        marginBottom: 4,
     },
     botaoListaDesejos: {
         position: 'absolute',
