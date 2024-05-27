@@ -12,18 +12,18 @@ const ListaDesejosTela = () => {
     useEffect(() => {
         const carregarProdutosListaDesejos = async () => {
             try {
-                const produtos = await obterProdutosListaDesejos(userData.email); // Use o email do usuário do contexto
+                const produtos = await obterProdutosListaDesejos(userData.email);
                 setProdutosListaDesejos(produtos);
             } catch (error) {
                 console.error('Erro ao carregar produtos na lista de desejos:', error);
             }
         };
         carregarProdutosListaDesejos();
-    }, [userData.email]); // Certifique-se de incluir o email do usuário como dependência
+    }, [userData.email]);
 
     const handleRemoverListaDesejos = async (produto) => {
         try {
-            await removerProdutoListaDesejos(produto.produtoId, userData.email); // Use o email do usuário do contexto
+            await removerProdutoListaDesejos(produto.produtoId, userData.email);
             setProdutosListaDesejos(produtosListaDesejos.filter((p) => p.produtoId !== produto.produtoId));
             Alert.alert('Sucesso', 'Produto removido da lista de desejos!');
         } catch (error) {

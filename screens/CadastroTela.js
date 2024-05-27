@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Pressable, StyleSheet, Alert, Image } from 'react-native';
-import { criarUsuario } from '../utils/http';
+import { useNavigation } from '@react-navigation/native';
 import { cores } from '../utils/cores';
-
-// Importe sua imagem de logo
 import LogoImage from '../assets/logo.png';
+import { criarUsuario } from '../utils/http';
 
 const CadastroTela = ({ navigation }) => {
     const [nome, setNome] = useState('');
@@ -24,22 +23,24 @@ const CadastroTela = ({ navigation }) => {
     };
 
     return (
-        <View style={styles.container}>
-            <Image source={LogoImage} style={styles.logo} />
-
-            <View style={styles.formContainer}>
-                <Text style={styles.title}>Cadastro</Text>
-                <TextInput style={styles.input} placeholder="Nome" value={nome} onChangeText={setNome} />
-                <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={setEmail} keyboardType="email-address" />
-                <Pressable style={styles.button} onPress={handleSignUp}>
-                    <Text style={styles.buttonText}>Cadastrar</Text>
+        <>
+            <View style={styles.logoContainer}>
+                <Image source={LogoImage} style={styles.logo} />
+            </View>
+            <View style={styles.container}>
+                <View style={styles.formContainer}>
+                    <Text style={styles.title}>Cadastro</Text>
+                    <TextInput style={styles.input} placeholder="Nome" value={nome} onChangeText={setNome} />
+                    <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={setEmail} keyboardType="email-address" />
+                    <Pressable style={styles.button} onPress={handleSignUp}>
+                        <Text style={styles.buttonText}>Cadastrar</Text>
+                    </Pressable>
+                </View>
+                <Pressable onPress={() => navigation.navigate('Login')}>
+                    <Text style={styles.loginText}>Já possui uma conta? Fazer login</Text>
                 </Pressable>
             </View>
-
-            <Pressable onPress={() => navigation.navigate('Login')}>
-                <Text style={styles.loginText}>Já possui uma conta? Fazer login</Text>
-            </Pressable>
-        </View>
+        </>
     );
 };
 
@@ -49,47 +50,49 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 16,
-        backgroundColor: cores.light, // Cor de fundo
+    },
+    logoContainer: {
+        marginTop: 100,
+        alignSelf: 'center',
+    },
+    logo: {
+        width: 150,
+        height: 75,
     },
     formContainer: {
         width: '100%',
         alignItems: 'center',
-        marginBottom: 20, // Espaço abaixo do formulário
-    },
-    logo: {
-        width: 150, // Ajuste a largura conforme necessário
-        height: 75, // Ajuste a altura conforme necessário
         marginBottom: 20,
     },
     title: {
-        fontSize: 24,
-        marginBottom: 16,
+        fontSize: 32,
+        marginBottom: 32,
         textAlign: 'center',
-        color: cores.primary, // Cor do título
+        color: cores.primary,
     },
     input: {
         borderWidth: 1,
-        borderColor: cores.secondary, // Cor da borda
+        borderColor: cores.secondary,
         padding: 8,
         marginVertical: 8,
         borderRadius: 4,
-        width: '80%', // Largura do input
+        width: '80%',
     },
     button: {
-        backgroundColor: cores.primary, // Cor do botão
+        backgroundColor: cores.primary,
         padding: 10,
         borderRadius: 4,
         marginTop: 10,
-        width: '80%', // Largura do botão
+        width: '80%',
     },
     buttonText: {
         fontSize: 16,
-        color: cores.light, // Cor do texto do botão
+        color: cores.light,
         textAlign: 'center',
     },
     loginText: {
-        color: cores.gray, // Cor do texto do link de login
-        //textDecorationLine: 'underline',
+        color: cores.gray,
+        marginTop: 20,
     },
 });
 

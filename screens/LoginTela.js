@@ -1,4 +1,3 @@
-// LoginTela.js
 import React, { useState } from 'react';
 import { View, Text, TextInput, Pressable, StyleSheet, Alert, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -28,19 +27,24 @@ const LoginTela = () => {
     };
 
     return (
-        <View style={styles.container}>
-            <Image source={LogoImage} style={styles.logo} />
-            <View style={styles.formContainer}>
-                <Text style={styles.title}>Login</Text>
-                <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={setEmail} keyboardType="email-address" />
-                <Pressable style={styles.button} onPress={handleLogin}>
-                    <Text style={styles.buttonText}>Login</Text>
+        <>
+            <View style={styles.logoContainer}>
+                <Image source={LogoImage} style={styles.logo} />
+                
+            </View>
+            <View style={styles.container}>
+                <View style={styles.formContainer}>
+                    <Text style={styles.title}>Login</Text>
+                    <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={setEmail} keyboardType="email-address" />
+                    <Pressable style={styles.button} onPress={handleLogin}>
+                        <Text style={styles.buttonText}>Login</Text>
+                    </Pressable>
+                </View>
+                <Pressable onPress={() => navigation.navigate('Cadastro')}>
+                    <Text style={styles.loginText}>Não possui uma conta? Cadastre-se</Text>
                 </Pressable>
             </View>
-            <Pressable onPress={() => navigation.navigate('Cadastro')}>
-                <Text style={styles.loginText}>Não possui uma conta? Cadastre-se</Text>
-            </Pressable>
-        </View>
+        </>
     );
 };
 
@@ -50,23 +54,34 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 16,
-        backgroundColor: cores.light,
+        //backgroundColor: cores.light,
+    },
+    logoContainer: {
+        marginTop: 100,
+        alignSelf: 'center',
+    },
+    logo: {
+        width: 150,
+        height: 75,
     },
     formContainer: {
         width: '100%',
         alignItems: 'center',
         marginBottom: 20,
     },
-    logo: {
-        width: 150,
-        height: 75,
-        marginBottom: 20,
-    },
     title: {
-        fontSize: 24,
-        marginBottom: 16,
+        fontSize: 32,
+        marginBottom: 32,
         textAlign: 'center',
         color: cores.primary,
+    },
+    subtitle: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 10,
+        textAlign: 'left',
+        alignSelf: 'flex-start',
+        width: '80%',
     },
     input: {
         borderWidth: 1,
@@ -90,6 +105,7 @@ const styles = StyleSheet.create({
     },
     loginText: {
         color: cores.gray,
+        marginTop: 20, // Aumenta a distância entre o texto de login e o texto de cadastro
     },
 });
 
